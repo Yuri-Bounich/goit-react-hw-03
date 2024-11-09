@@ -6,7 +6,7 @@ import ContactForm from './ContactForm/ContactForm';
 import '../index.css';
 import SearchBox from './SearchBox/SearchBox';
 import ContactList from './ContactList/ContactList';
-// import { useState, useEffect } from 'react';
+import { useState /*useEffect*/ } from 'react';
 
 const App = () => {
   // Зчитування збережених значень з локального сховища при завантаженні сторінки
@@ -18,7 +18,18 @@ const App = () => {
   // };
 
   // Ініціалізація стану з локального сховища або початкових значень
-  // const [values, setValues] = useState(getInitialValues);
+  const [values, setValues] = useState('');
+  const [contactsData] = useState(contacts);
+
+  // Функція для обробки змін у фільтрі
+  const handleFilterChange = event => {
+    setValues(event.target.value); // Оновлює значення фільтру
+  };
+
+  // Фільтрування контактів на основі фільтру
+  const filteredContacts = contactsData.filter(contact =>
+    contact.name.toLowerCase().includes(values.toLowerCase())
+  );
 
   // Збереження стану в локальному сховищі кожного разу, коли він змінюється
   // useEffect(() => {
@@ -62,8 +73,16 @@ const App = () => {
       // onReset={resetFeedback}
       // totalFeedback={totalFeedback}
       />
-      <SearchBox />
-      <ContactList contacts={contacts} />
+      <SearchBox
+        values={values}
+        onFilterChange={handleFilterChange}
+        /* Передаємо значення фільтру та функцію для його оновлення */
+      />
+      <ContactList
+        contacts={
+          filteredContacts
+        } /* Передаємо відфільтрований список контактів */
+      />
       {/* Умовний рендеринг на основі totalFeedback */}
       {/* {totalFeedback > 0 ? (
         <Feedback

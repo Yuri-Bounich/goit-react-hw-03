@@ -1,7 +1,3 @@
-.title {
-  margin-bottom: 20px;
-}
-
 .block {
   display: flex;
   flex-direction: row;
@@ -11,8 +7,18 @@
   max-width: 1128px;
 }
 .item {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
   flex: 0 1 200px; /* Зробити всі li однакової ширини */
   padding: 5px;
   border-radius: 8px;
   border: 2px solid #000000;
+  & button {
+    border: 1px solid #000000;
+    border-radius: 8px;
+    padding: 5px;
+    max-height: 30px;
+    margin: 0 auto;
+  }
 }

@@ -1,25 +1,48 @@
 // import { useId } from 'react';
 import s from './ContactForm.module.css';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import * as Yup from 'yup';
 
 const ContactForm = () => {
-  const handleSubmit = evt => {
-    evt.preventDefault();
-    console.log(evt);
+  const onSubmit = (values, options) => {
+    console.log(values);
+    options.resetForm();
+  };
+
+  const orderSchema = Yup.object().shape({
+    login: Yup.string().min(3).max(50).required('this field is required'),
+    password: Yup.string().min(3).max(50).required(),
+  });
+
+  const initialValues = {
+    login: '',
+    password: '',
   };
 
   return (
-    <div className={s.container}>
-      <form className={s.form} onSubmit={handleSubmit}>
-        <label className={s.input}>
-          <span>Name</span>
-          <input type="text" name="login" />
-        </label>
-        <label className={s.input}>
-          <span>Number</span>
-          <input type="password" name="password" />{' '}
-        </label>
-        <button type="submit">Add contact</button>
-      </form>
+    <div>
+      <h2 className={s.title}>Phonebook</h2>
+      <div className={s.container}>
+        <Formik
+          validationSchema={orderSchema}
+          onSubmit={onSubmit}
+          initialValues={initialValues}
+        >
+          <Form className={s.form}>
+            <label className={s.input}>
+              <span>Name</span>
+              <Field type="text" name="login" />
+              <ErrorMessage name="login" component="span" />
+            </label>
+            <label className={s.input}>
+              <span>Number</span>
+              <Field type="text" name="password" />
+              <ErrorMessage name="password" component="span" />
+            </label>
+            <button type="submit">Add contact</button>
+          </Form>
+        </Formik>
+      </div>
     </div>
   );
 };

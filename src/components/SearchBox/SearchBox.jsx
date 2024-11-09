@@ -1,12 +1,17 @@
 import s from './SearchBox.module.css';
 // import { useState } from 'react';
 
-const SearchBox = () => {
+const SearchBox = ({ values, onFilterChange }) => {
   //   const [inputValue, setInputValue] = useState('');
   return (
     <label className={s.input}>
-      <span>Name</span>
-      <input type="text" name="search" />
+      <span>Find contacts by name</span>
+      <input
+        type="text"
+        value={values}
+        onChange={onFilterChange}
+        name="search"
+      />
     </label>
   );
 };
