@@ -3,7 +3,12 @@ import s from './ContactForm.module.css';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
-const ContactForm = ({ handleAddTodo }) => {
+const ContactForm = ({
+  newLoginValue,
+  setNewLoginValue,
+  newPasswordValue,
+  setNewPasswordValue,
+}) => {
   const onSubmit = (values, options) => {
     console.log(values);
     options.resetForm();
@@ -18,6 +23,13 @@ const ContactForm = ({ handleAddTodo }) => {
     login: '',
     password: '',
   };
+
+  // const handleAddTodo = () => {
+  //   const newTodo = {
+  //     id: '123',
+  //     todo: 'test',
+  //   };
+  // };
 
   return (
     <div>
@@ -34,14 +46,19 @@ const ContactForm = ({ handleAddTodo }) => {
               <Field
                 type="text"
                 name="login"
-                // value={newValue}
-                onChange={e => handleAddTodo(e.target.value)}
+                value={newLoginValue}
+                onChange={e => setNewLoginValue(e.target.value)}
               />
               <ErrorMessage name="login" component="span" />
             </label>
             <label className={s.input}>
               <span>Number</span>
-              <Field type="text" name="password" />
+              <Field
+                type="text"
+                name="password"
+                value={newPasswordValue}
+                onChange={e => setNewPasswordValue(e.target.value)}
+              />
               <ErrorMessage name="password" component="span" />
             </label>
             <button type="submit">Add contact</button>

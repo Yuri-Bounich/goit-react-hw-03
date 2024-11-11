@@ -8,7 +8,8 @@ import { useState /*useEffect*/ } from 'react';
 const App = () => {
   // Ініціалізація стану з локального сховища або початкових значень
   const [values, setValues] = useState('');
-  const [newValue, setNewValue] = useState('');
+  const [newLoginValue, setNewLoginValue] = useState('');
+  const [newPasswordValue, setNewPasswordValue] = useState('');
   const [contacts, setContacts] = useState(contactsData);
 
   // Функція для обробки змін у фільтрі
@@ -43,16 +44,14 @@ const App = () => {
     // у setContacts перезаписали відфільтрований масив
   };
 
-  const handleAddTodo = () => {
-    const newTodo = {
-      id: '123',
-      todo: 'test',
-    };
-  };
-
   return (
     <div>
-      <ContactForm handleAddTodo={handleAddTodo} />
+      <ContactForm
+        newLoginValue={newLoginValue}
+        setNewLoginValue={setNewLoginValue}
+        newPasswordValue={newPasswordValue}
+        setNewPasswordValue={setNewPasswordValue}
+      />
       <SearchBox
         values={values}
         onFilterChange={handleFilterChange}
