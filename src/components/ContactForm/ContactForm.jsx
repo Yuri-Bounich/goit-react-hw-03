@@ -3,7 +3,7 @@ import s from './ContactForm.module.css';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
-const ContactForm = () => {
+const ContactForm = ({ handleAddTodo }) => {
   const onSubmit = (values, options) => {
     console.log(values);
     options.resetForm();
@@ -31,7 +31,12 @@ const ContactForm = () => {
           <Form className={s.form}>
             <label className={s.input}>
               <span>Name</span>
-              <Field type="text" name="login" />
+              <Field
+                type="text"
+                name="login"
+                // value={newValue}
+                onChange={e => handleAddTodo(e.target.value)}
+              />
               <ErrorMessage name="login" component="span" />
             </label>
             <label className={s.input}>
