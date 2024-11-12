@@ -4,13 +4,27 @@ import '../index.css';
 import SearchBox from './SearchBox/SearchBox';
 import ContactList from './ContactList/ContactList';
 import { useState /*useEffect*/ } from 'react';
+import { nanoid } from 'nanoid';
 
 const App = () => {
   // Ініціалізація стану з локального сховища або початкових значень
   const [values, setValues] = useState('');
-  const [newLoginValue, setNewLoginValue] = useState('');
-  const [newPasswordValue, setNewPasswordValue] = useState('');
   const [contacts, setContacts] = useState(contactsData);
+
+  // // 1. Створюємо один стейт для всіх полів
+  // const [formValues, setFormValues] = useState({
+  //   login: '',
+  //   password: '',
+  // });
+
+  // // 2. Оновлення стану при зміні значення поля
+  // const handleChange = e => {
+  //   const { name, value } = e.target;
+  //   setFormValues(prevState => ({
+  //     ...prevState,
+  //     [name]: value, // оновлюємо значення тільки того поля, яке змінилося
+  //   }));
+  // };
 
   // Функція для обробки змін у фільтрі
   const handleFilterChange = event => {
@@ -18,22 +32,11 @@ const App = () => {
   };
 
   // Фільтрування контактів на основі фільтру
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(values.toLowerCase())
+  const filteredContacts = contacts.filter(
+    contact =>
+      contact.name &&
+      contact.name.toLowerCase().includes(values ? values.toLowerCase() : '')
   );
-
-  // Збереження стану в локальному сховищі кожного разу, коли він змінюється
-  // useEffect(() => {
-  //   localStorage.setItem('feedback-values', JSON.stringify(values));
-  // }, [values]);
-
-  // Функція для оновлення стану за типом фідбеку
-  // const updateFeedback = feedbackType => {
-  //   setValues(prevValues => ({
-  //     ...prevValues,
-  //     [feedbackType]: prevValues[feedbackType] + 1,
-  //   }));
-  // };
 
   const handleDeleteTodo = id => {
     // console.log(id);
@@ -44,13 +47,21 @@ const App = () => {
     // у setContacts перезаписали відфільтрований масив
   };
 
+  const handleAddTodo = ({ login, password }) => {
+    const newTodo = {
+      id: nanoid(),
+      name: login,
+      number: password,
+    };
+    setContacts(prev => [...prev, newTodo]);
+  };
+
   return (
     <div>
       <ContactForm
-        newLoginValue={newLoginValue}
-        setNewLoginValue={setNewLoginValue}
-        newPasswordValue={newPasswordValue}
-        setNewPasswordValue={setNewPasswordValue}
+        // formValues={formValues}
+        // handleChange={handleChange}
+        handleAddTodo={handleAddTodo}
       />
       <SearchBox
         values={values}
