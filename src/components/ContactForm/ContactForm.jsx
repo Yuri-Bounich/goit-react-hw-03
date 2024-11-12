@@ -44,11 +44,6 @@ const ContactForm = ({ handleAddTodo }) => {
 };
 
 ContactForm.propTypes = {
-  // handleChange: PropTypes.func.isRequired,
-  // formValues: PropTypes.shape({
-  //   login: PropTypes.string.isRequired,
-  //   password: PropTypes.string.isRequired,
-  // }).isRequired,
   handleAddTodo: PropTypes.func.isRequired,
 };
 

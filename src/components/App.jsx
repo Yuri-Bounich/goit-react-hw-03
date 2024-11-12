@@ -3,28 +3,21 @@ import ContactForm from './ContactForm/ContactForm';
 import '../index.css';
 import SearchBox from './SearchBox/SearchBox';
 import ContactList from './ContactList/ContactList';
-import { useState /*useEffect*/ } from 'react';
+import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 
 const App = () => {
   // Ініціалізація стану з локального сховища або початкових значень
   const [values, setValues] = useState('');
-  const [contacts, setContacts] = useState(contactsData);
+  const [contacts, setContacts] = useState(
+    () => JSON.parse(localStorage.getItem('contacts')) || contactsData
+  );
+  // Ініціалізація зі сховища або даних за замовчуванням
 
-  // // 1. Створюємо один стейт для всіх полів
-  // const [formValues, setFormValues] = useState({
-  //   login: '',
-  //   password: '',
-  // });
-
-  // // 2. Оновлення стану при зміні значення поля
-  // const handleChange = e => {
-  //   const { name, value } = e.target;
-  //   setFormValues(prevState => ({
-  //     ...prevState,
-  //     [name]: value, // оновлюємо значення тільки того поля, яке змінилося
-  //   }));
-  // };
+  useEffect(() => {
+    // Зберігаємо дані в локальному сховищі щоразу при зміні `contacts`
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
   // Функція для обробки змін у фільтрі
   const handleFilterChange = event => {
@@ -58,11 +51,7 @@ const App = () => {
 
   return (
     <div>
-      <ContactForm
-        // formValues={formValues}
-        // handleChange={handleChange}
-        handleAddTodo={handleAddTodo}
-      />
+      <ContactForm handleAddTodo={handleAddTodo} />
       <SearchBox
         values={values}
         onFilterChange={handleFilterChange}
