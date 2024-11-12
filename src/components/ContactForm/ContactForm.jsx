@@ -10,7 +10,7 @@ const ContactForm = ({ handleAddTodo }) => {
   });
 
   const onSubmit = (values, options) => {
-    console.log(values);
+    // console.log(values);
     handleAddTodo(values); // Передаємо значення форми у `handleAddTodo`
     options.resetForm();
   };

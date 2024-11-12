@@ -3,8 +3,8 @@ import s from './Contact.module.css';
 const Contact = ({ name, number }) => {
   return (
     <div className={s.item}>
-      <p>{name}</p>
-      <p>{number}</p>
+      <span>{name}</span>
+      <span>{number}</span>
     </div>
   );
 };
