@@ -1,6 +1,6 @@
 import Contact from '../Contact/Contact';
 import s from './ContactList.module.css';
-import { FaPhone, FaUser } from 'react-icons/fa';
+import { FaPhoneAlt, FaUser } from 'react-icons/fa';
 
 const ContactList = ({ contacts, handleDeleteTodo }) => {
   return (
@@ -16,7 +16,7 @@ const ContactList = ({ contacts, handleDeleteTodo }) => {
               }
               number={
                 <>
-                  <FaPhone /> {number}
+                  <FaPhoneAlt /> {number}
                 </>
               }
             />
